@@ -1,0 +1,23 @@
+Found 510 images belonging to 31 classes.
+Found 195 images belonging to 31 classes.
+Epoch 1/10
+16/16 [==============================] - 119s 7s/step - loss: 3.4060 - accuracy: 0.0608 - val_loss: 3.1573 - val_accuracy: 0.2410
+Epoch 2/10
+16/16 [==============================] - 81s 5s/step - loss: 2.6716 - accuracy: 0.2569 - val_loss: 1.5441 - val_accuracy: 0.6359
+Epoch 3/10
+16/16 [==============================] - 84s 5s/step - loss: 1.7136 - accuracy: 0.5235 - val_loss: 0.8744 - val_accuracy: 0.8205
+Epoch 4/10
+16/16 [==============================] - 79s 5s/step - loss: 1.0276 - accuracy: 0.6922 - val_loss: 0.5276 - val_accuracy: 0.8923
+Epoch 5/10
+16/16 [==============================] - 81s 5s/step - loss: 0.7438 - accuracy: 0.7824 - val_loss: 0.4310 - val_accuracy: 0.9333
+Epoch 6/10
+16/16 [==============================] - 92s 6s/step - loss: 0.6111 - accuracy: 0.8216 - val_loss: 0.4652 - val_accuracy: 0.9128
+Epoch 7/10
+16/16 [==============================] - 80s 5s/step - loss: 0.5297 - accuracy: 0.8294 - val_loss: 0.3723 - val_accuracy: 0.9282
+Epoch 8/10
+16/16 [==============================] - 80s 5s/step - loss: 0.5354 - accuracy: 0.8451 - val_loss: 0.3939 - val_accuracy: 0.9333
+Epoch 9/10
+16/16 [==============================] - 79s 5s/step - loss: 0.3878 - accuracy: 0.8686 - val_loss: 0.3739 - val_accuracy: 0.9282
+Epoch 10/10
+16/16 [==============================] - 78s 5s/step - loss: 0.3811 - accuracy: 0.8686 - val_loss: 0.3932 - val_accuracy: 0.9282
+Model training done! 

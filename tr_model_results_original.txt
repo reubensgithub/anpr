@@ -1,0 +1,66 @@
+Found 195 images belonging to 31 classes.
+7/7 [==============================] - 7s 888ms/step
+21
+True: 0, Predicted: N
+True: 0, Predicted: S
+True: 0, Predicted: Z
+True: 0, Predicted: 9
+True: 1, Predicted: S
+True: 1, Predicted: B
+True: 1, Predicted: B
+True: 1, Predicted: K
+True: 1, Predicted: C
+True: 1, Predicted: 8
+True: 2, Predicted: H
+True: 2, Predicted: P
+True: 2, Predicted: 7
+True: 2, Predicted: 5
+True: 3, Predicted: 1
+True: 3, Predicted: 5
+True: 3, Predicted: 8
+True: 3, Predicted: 5
+True: 3, Predicted: U
+True: 3, Predicted: 2
+Classification report: 
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00         4
+           1       0.00      0.00      0.00         6
+           2       0.00      0.00      0.00         4
+           3       0.00      0.00      0.00         7
+           4       0.00      0.00      0.00         7
+           5       0.00      0.00      0.00         7
+           6       0.00      0.00      0.00         5
+           7       0.00      0.00      0.00         6
+           8       0.00      0.00      0.00         8
+           9       0.00      0.00      0.00        11
+          10       0.00      0.00      0.00         9
+          11       0.10      0.12      0.11         8
+          12       0.00      0.00      0.00         7
+          13       0.00      0.00      0.00         5
+          14       0.00      0.00      0.00         4
+          15       0.00      0.00      0.00         3
+          16       0.00      0.00      0.00         5
+          17       0.00      0.00      0.00         7
+          18       0.00      0.00      0.00         3
+          19       0.00      0.00      0.00         5
+          20       0.00      0.00      0.00         6
+          21       0.00      0.00      0.00         6
+          22       0.14      0.14      0.14         7
+          23       0.00      0.00      0.00         5
+          24       0.11      0.11      0.11         9
+          25       0.00      0.00      0.00         3
+          26       0.11      0.11      0.11         9
+          27       0.00      0.00      0.00         4
+          28       0.00      0.00      0.00         9
+          29       0.20      0.20      0.20         5
+          30       0.00      0.00      0.00        11
+
+    accuracy                           0.03       195
+   macro avg       0.02      0.02      0.02       195
+weighted avg       0.02      0.03      0.03       195
+
+
+7/7 [==============================] - 7s 890ms/step - loss: 0.3932 - accuracy: 0.9282
+0.3932425081729889
+0.928205132484436

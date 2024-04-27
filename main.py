@@ -8,6 +8,11 @@ import shutil
 
 def preprocess_image(image_path):
     #grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image_path = cv2.imread(image_path)
+    image_path = cv2.resize(image_path, (640, 640))
+    if image_path is None:
+        print("Error: Image not found")
+        return None
     hsv = cv2.cvtColor(image_path, cv2.COLOR_BGR2HSV)
     lower_yellow = np.array([20, 100, 100])
     upper_yellow = np.array([30, 255, 255])
@@ -25,10 +30,13 @@ def preprocess_image(image_path):
     filtered = cv2.bilateralFilter(grey, 11, 17, 17)
     edged = cv2.Canny(filtered, 10, 200)
     thresh = cv2.adaptiveThreshold(filtered, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 6)
+    #thresh = cv2.adaptiveThreshold(filtered, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 55, 20)
+    cv2.imshow("thresh", thresh)
+    cv2.waitKey(0)
     kernel = np.ones((5,5), np.uint8)
     points = cv2.findContours(thresh.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contour_points = imutils.grab_contours(points)
-    contour_points = sorted(contour_points, key=cv2.contourArea, reverse=True)[:10]
+    contour_points = sorted(contour_points, key=cv2.contourArea, reverse=True)
     min_aspect_ratio = 2.0
     max_aspect_ratio = 5.0
 
@@ -37,12 +45,18 @@ def preprocess_image(image_path):
     #cv2.imshow('Thresh Image', thresh)
     #cv2.waitKey(0)
 
+    contour_image = image.copy()
+    cv2.drawContours(contour_image, contour_points, -1, (0, 255, 0), 2)
+    cv2.imshow("All Contours", contour_image)
+    cv2.waitKey(0)
+
     max_time = 5
     location = None
     start_time = time.time()
     while location is None and (time.time() - start_time) < max_time:
         for contour in contour_points:
-            approx = cv2.approxPolyDP(contour, 5, True)
+            epsilon = 0.02 * cv2.arcLength(contour, True)
+            approx = cv2.approxPolyDP(contour, epsilon, True)
             if len(approx) == 4:
                 #location = approx
                 x, y, w, h = cv2.boundingRect(approx)
@@ -53,14 +67,16 @@ def preprocess_image(image_path):
                 if min_aspect_ratio > aspect_ratio or aspect_ratio > max_aspect_ratio:
                     continue
                 else:
-                    new_image = image[y:y + h, x:x + w]
-                    return new_image
+                    if has_text_inside(contour, thresh):
+                        new_image = image[y:y + h, x:x + w]
+                        return new_image
             else:
                 points = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                 contour_points = imutils.grab_contours(points)
-                contour_points = sorted(contour_points, key=cv2.contourArea, reverse=True)[:10]
+                contour_points = sorted(contour_points, key=cv2.contourArea, reverse=True)
             if len(approx) != 4:
-                approx = cv2.approxPolyDP(contour, 20, True)
+                epsilon = 0.02 * cv2.arcLength(contour, True)
+                approx = cv2.approxPolyDP(contour, epsilon, True)
                 if len(approx) == 4:
                     #location = approx
                     x, y, w, h = cv2.boundingRect(approx)
@@ -71,33 +87,23 @@ def preprocess_image(image_path):
                     if min_aspect_ratio > aspect_ratio or aspect_ratio > max_aspect_ratio:
                         continue
                     else:
-                        new_image = image[y:y+h, x:x+w]
-                        return new_image
+                        if has_text_inside(contour, thresh):
+                            new_image = image[y:y+h, x:x+w]
+                            return new_image
                 else:
                     points = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
                     contour_points = imutils.grab_contours(points)
-                    contour_points = sorted(contour_points, key=cv2.contourArea, reverse=True)[:10]
+                    contour_points = sorted(contour_points, key=cv2.contourArea, reverse=True)
+
+def has_text_inside(contour, thresh):
+    x, y, w, h = cv2.boundingRect(contour)
+    roi = thresh[y:y + h, x:x + w]
+    total_pixels = np.prod(roi.shape[:2])
+    white_pixels = total_pixels - cv2.countNonZero(roi)
+    return white_pixels > total_pixels * 0.4
 
 
-
-    '''if location is not None:
-        mask = np.zeros(grey.shape, np.uint8)
-        new_image = cv2.drawContours(mask, [location], 0, 255, -1)
-        new_image = cv2.bitwise_and(image_path, image_path, mask=mask)
-        #x,y,w,h = cv2.boundingRect(location)
-        #aspect_ratio = float(w) / h
-        #print("Number plate found with aspect ratio:", aspect_ratio)
-        #cv2.imshow('Original Image', image_path)
-        #cv2.imshow('Processed Image', new_image)
-        #cv2.waitKey(0)
-        print("Image successfully preprocessed")
-        return new_image
-    else:
-        print("Image unsucessfully preprocessed")
-        return None'''
-
-
-def preprocess_all(input_folder, output_folder):
+'''def preprocess_all(input_folder, output_folder):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
@@ -141,8 +147,6 @@ def rename_subfolders(folder_path):
         old_path = os.path.join(folder_path, subfolder)
         new_name = subfolder[:4] + ' ' + subfolder[4:]
         new_path = os.path.join(folder_path, new_name)
-
-        # Rename the subfolder
         os.rename(old_path, new_path)
 
 def transfer_subfolders(source_folder, destination_folder):
@@ -153,7 +157,6 @@ def transfer_subfolders(source_folder, destination_folder):
         destination_path = os.path.join(destination_folder, subfolder)
 
         shutil.copytree(source_path, destination_path)
-
 
 yellow_synthetic_uk_plates = 'C:/Users/reube/Downloads/yellowplate_augmented'
 white_synthetic_uk_plates = 'C:/Users/reube/Downloads/whiteplate_augmented'
@@ -167,9 +170,15 @@ final_destination = 'C:/Users/reube/Desktop/final_dataset'
 
 ## all preprocessed images are currently in 'C:/Users/reube/Downloads/anpr-dataset/preprocessed'
 
-#print("PROGRAM IS DONE EXECUTING")
-image = cv2.imread('C:/Users/reube/PycharmProjects/anpr-project/od_dataset1/train/2adfb5e7-e70a-4749-b5fa-8c233c0d47d9___new_1572920d1478091901-your-favourite-number-plate-font-jetta-german-font-jpg_jpeg.rf.9aa8940e23ceb89858bd971f2a593411.jpg')
-new_image = preprocess_image(image)
+#print("PROGRAM IS DONE EXECUTING")'''
+
+
+image = cv2.imread('C:/Users/reube/Downloads/DSC06005.jpg')
+image = cv2.resize(image, (640, 640))
+new_image = preprocess_image('C:/Users/reube/Downloads/DSC06005.jpg')
+#new_image = cv2.resize(new_image, (720, 480))
+cv2.imshow('Original image', image)
+cv2.waitKey(0)
 cv2.imshow('New image', new_image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
