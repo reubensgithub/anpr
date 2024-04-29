@@ -2,7 +2,7 @@ runtime: python38
 
 env_variables:
   # This setting is used in settings.py to configure your ALLOWED_HOSTS
-  APPENGINE_URL: anpr-app-420416.ew.r.appspot.com
+  APPENGINE_URL: https://anpr-app-420416.ew.r.appspot.com
 
 handlers:
 # This configures Google App Engine to serve the files in the app's static

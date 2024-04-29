@@ -2,10 +2,13 @@ import cv2
 import imutils
 import numpy as np
 import time
+import functools
+from sklearn.preprocessing import LabelEncoder
+from matplotlib import pyplot as plt
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.models import load_model, Sequential
 
-def preprocess_image(image_path):
+def license_plate_detection(image_path):
     if image_path is None:
         print("Error: Image not found")
         return None
@@ -77,14 +80,35 @@ def preprocess_image(image_path):
                     contour_points = imutils.grab_contours(points)
                     contour_points = sorted(contour_points, key=cv2.contourArea, reverse=True)
 
+def compare(rect1, rect2):
+        if abs(rect1[1] - rect2[1]) > 10:
+            return rect1[1] - rect2[1]
+        else:
+            return rect1[0] - rect2[0]
 
-
-#new_image = preprocess_image('All-newKiaSportage2.jpg')
-#new_image = preprocess_image('DSC060051.jpg')
-#new_image = preprocess_image('test.jpg') # output is numpy nd array with 3 dimensions (width, height, channels)
-#cv2.imshow("New image", new_image)
-#cv2.waitKey(0)
-#cv2.destroyAllWindows()
+def character_segmentation(image):
+    grey = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    blurred = cv2.GaussianBlur(grey, (5, 5), 0)
+    thresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY_INV, 45, 15)
+    _, labels = cv2.connectedComponents(thresh)
+    mask = np.zeros(thresh.shape, dtype="uint8")
+    image_pixels = image.shape[0] * image.shape[1]
+    lb = image_pixels // 60
+    ub = image_pixels // 20
+    for (i, label) in enumerate(np.unique(labels)):
+        if label == 0:
+            continue
+    
+        labelMask = np.zeros(thresh.shape, dtype="uint8")
+        labelMask[labels == label] = 255
+        numPixels = cv2.countNonZero(labelMask)
+        
+        if numPixels > lb and numPixels < ub:
+            mask = cv2.add(mask, labelMask)
+    contours, _ = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    boundingBoxes = [cv2.boundingRect(c) for c in contours]
+    boundingBoxes = sorted(boundingBoxes, key=functools.cmp_to_key(compare))
+    return boundingBoxes
 
 def create_tr_model():
     tr_model = Sequential([
@@ -104,10 +128,47 @@ def create_tr_model():
     ])
 
     tr_model.load_weights('best_tr_model/best_model.h5')
+    return tr_model
+
 
 def pipeline(image):
+    tr_model = create_tr_model()
+    alphabet = ['0','1','2','3','4','5','6','7','8',
+                '9','A','B','C','D','E','F','G','H',
+                'I','J','K','L','M','N','O','P','Q',
+                'R','S','T','U','V','W','X','Y','Z']
     number_plate = ''
-    cropped = preprocess_image(image)
-    cs_predictions = cs_model.predict(cropped)
-    for box in cs_predictions:
-        tr_predictions = tr_model.predict(box)
+    le = LabelEncoder()
+    le.fit(alphabet)
+    cropped = license_plate_detection(image)
+    cv2.imshow("cropped", cropped)
+    cv2.waitKey(0)
+    if cropped.shape[0] < 32 or cropped.shape[1] < 32:
+        print("Valid number plate not found, breaking out")
+        return None
+    bounding_boxes = character_segmentation(cropped)
+    print(bounding_boxes)
+    
+    cropped_characters = []
+    for box in bounding_boxes:
+        x,y,w,h = box
+        crop = cropped[y:y+h, x:x+w]
+        crop = cv2.resize(crop, (64, 64))
+        cv2.imshow("crop", crop)
+        cv2.waitKey(0)
+        cropped_characters.append(crop)
+
+    print(cropped_characters)
+    cropped_characters = np.array(cropped_characters)
+    cropped_characters = np.expand_dims(cropped_characters, axis=0)
+
+    for char in cropped_characters[0]:
+        char = np.expand_dims(char, axis=0)
+        prediction = tr_model.predict(char)
+        predicted_label = le.inverse_transform(np.argmax(prediction, axis=1))
+        number_plate += predicted_label[0]
+
+    return number_plate
+
+number_plate = pipeline('test.jpg')
+print(number_plate)
