@@ -34,23 +34,20 @@ def license_plate_detection(image_path):
     points = cv2.findContours(thresh.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contour_points = imutils.grab_contours(points)
     contour_points = sorted(contour_points, key=cv2.contourArea, reverse=True)
+    
     min_aspect_ratio = 2.0
     max_aspect_ratio = 5.0
-
     max_time = 5
-    location = None
     start_time = time.time()
-    while location is None and (time.time() - start_time) < max_time:
+    while (time.time() - start_time) < max_time:
         for contour in contour_points:
             epsilon = 0.02 * cv2.arcLength(contour, True)
             approx = cv2.approxPolyDP(contour, epsilon, True)
             if len(approx) == 4:
-                #location = approx
                 x, y, w, h = cv2.boundingRect(approx)
                 if w == 0 or h == 0:
                     continue
                 aspect_ratio = float(w) / h
-                #print("ASPECT RATIO IS: ", aspect_ratio)
                 if min_aspect_ratio > aspect_ratio or aspect_ratio > max_aspect_ratio:
                     continue
                 else:
@@ -64,12 +61,10 @@ def license_plate_detection(image_path):
                 epsilon = 0.02 * cv2.arcLength(contour, True)
                 approx = cv2.approxPolyDP(contour, epsilon, True)
                 if len(approx) == 4:
-                    #location = approx
                     x, y, w, h = cv2.boundingRect(approx)
                     if w == 0 or h == 0:
                         continue
                     aspect_ratio = float(w) / h
-                    #print("ASPECT RATIO IS: ", aspect_ratio)
                     if min_aspect_ratio > aspect_ratio or aspect_ratio > max_aspect_ratio:
                         continue
                     else:
@@ -141,8 +136,6 @@ def pipeline(image):
     le = LabelEncoder()
     le.fit(alphabet)
     cropped = license_plate_detection(image)
-    cv2.imshow("cropped", cropped)
-    cv2.waitKey(0)
     if cropped.shape[0] < 32 or cropped.shape[1] < 32:
         print("Valid number plate not found, breaking out")
         return None
@@ -154,8 +147,6 @@ def pipeline(image):
         x,y,w,h = box
         crop = cropped[y:y+h, x:x+w]
         crop = cv2.resize(crop, (64, 64))
-        cv2.imshow("crop", crop)
-        cv2.waitKey(0)
         cropped_characters.append(crop)
 
     print(cropped_characters)
