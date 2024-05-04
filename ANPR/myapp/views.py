@@ -23,13 +23,13 @@ def run_pipeline(request):
 
             # Check if the pipeline function returned a result
             if number_plate:
-                return render(request, "home.html", {'result': number_plate})
+                return render(request, "pipeline.html", {'result': number_plate})
             else:
-                return render(request, "home.html", {'error_message': 'Valid number plate not found'})
+                return render(request, "pipeline.html", {'error_message': 'Valid number plate not found'})
         except Exception as e:
-            return render(request, "home.html", {'error_message': str(e)})
+            return render(request, "pipeline.html", {'error_message': str(e)})
         finally:
             # Clean up by removing the temporary file
             os.unlink(temp_image_path)
     else:
-        return render(request, "home.html")
+        return render(request, "pipeline.html")
