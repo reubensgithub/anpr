@@ -1,0 +1,166 @@
+Found 7560 images belonging to 36 classes.
+Found 1620 images belonging to 36 classes.
+Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/vgg16/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5
+58889256/58889256 [==============================] - 0s 0us/step
+Epoch 1/50
+ 37/237 [===>..........................] - ETA: 38:18 - loss: 3.7526 - accuracy: 0.0296Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fcfa26d260>
+237/237 [==============================] - ETA: 0s - loss: 3.5196 - accuracy: 0.0651 Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce561b880>
+/usr/local/lib/python3.10/dist-packages/keras/src/engine/training.py:3103: UserWarning: You are saving your model as an HDF5 file via `model.save()`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')`.
+  saving_api.save_model(
+237/237 [==============================] - 3422s 14s/step - loss: 3.5196 - accuracy: 0.0651 - val_loss: 3.2101 - val_accuracy: 0.2654 - lr: 1.0000e-04
+Epoch 2/50
+200/237 [========================>.....] - ETA: 54s - loss: 3.1268 - accuracy: 0.1606Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce5694cc0>
+237/237 [==============================] - ETA: 0s - loss: 3.0810 - accuracy: 0.1717Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce5697ec0>
+Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56a0630>
+237/237 [==============================] - 435s 2s/step - loss: 3.0810 - accuracy: 0.1717 - val_loss: 2.4643 - val_accuracy: 0.5142 - lr: 1.0000e-04
+Epoch 3/50
+ 80/237 [=========>....................] - ETA: 3:51 - loss: 2.7025 - accuracy: 0.2500Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56ac450>
+237/237 [==============================] - ETA: 0s - loss: 2.4956 - accuracy: 0.2996Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bca40>
+237/237 [==============================] - 439s 2s/step - loss: 2.4956 - accuracy: 0.2996 - val_loss: 1.6681 - val_accuracy: 0.7426 - lr: 1.0000e-04
+Epoch 4/50
+  6/237 [..............................] - ETA: 5:56 - loss: 2.2206 - accuracy: 0.3490Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bd490>
+237/237 [==============================] - 438s 2s/step - loss: 1.9866 - accuracy: 0.4298 - val_loss: 1.1475 - val_accuracy: 0.8481 - lr: 1.0000e-04
+Epoch 5/50
+Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bd260>
+237/237 [==============================] - ETA: 0s - loss: 1.6095 - accuracy: 0.5366Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c9df0>
+237/237 [==============================] - 436s 2s/step - loss: 1.6095 - accuracy: 0.5366 - val_loss: 0.7923 - val_accuracy: 0.8864 - lr: 1.0000e-04
+Epoch 6/50
+145/237 [=================>............] - ETA: 2:17 - loss: 1.3691 - accuracy: 0.5890Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfba0>
+237/237 [==============================] - ETA: 0s - loss: 1.3323 - accuracy: 0.6048Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c8680>
+Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c8180>
+237/237 [==============================] - 435s 2s/step - loss: 1.3323 - accuracy: 0.6048 - val_loss: 0.6180 - val_accuracy: 0.9148 - lr: 1.0000e-04
+Epoch 7/50
+174/237 [=====================>........] - ETA: 1:33 - loss: 1.1735 - accuracy: 0.6541Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56be3e0>
+237/237 [==============================] - ETA: 0s - loss: 1.1425 - accuracy: 0.6648Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bff10>
+237/237 [==============================] - 433s 2s/step - loss: 1.1425 - accuracy: 0.6648 - val_loss: 0.4539 - val_accuracy: 0.9160 - lr: 1.0000e-04
+Epoch 8/50
+ 37/237 [===>..........................] - ETA: 5:10 - loss: 1.0089 - accuracy: 0.6951Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfb50>
+237/237 [==============================] - 438s 2s/step - loss: 0.9919 - accuracy: 0.7060 - val_loss: 0.3649 - val_accuracy: 0.9315 - lr: 1.0000e-04
+Epoch 9/50
+ 25/237 [==>...........................] - ETA: 5:07 - loss: 0.9892 - accuracy: 0.7113Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c9350>
+237/237 [==============================] - ETA: 0s - loss: 0.8769 - accuracy: 0.7456Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c9350>
+237/237 [==============================] - 435s 2s/step - loss: 0.8769 - accuracy: 0.7456 - val_loss: 0.3137 - val_accuracy: 0.9327 - lr: 1.0000e-04
+Epoch 10/50
+107/237 [============>.................] - ETA: 3:15 - loss: 0.8113 - accuracy: 0.7553Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56be3e0>
+237/237 [==============================] - ETA: 0s - loss: 0.7752 - accuracy: 0.7673Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bcb80>
+Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56be3e0>
+237/237 [==============================] - 437s 2s/step - loss: 0.7752 - accuracy: 0.7673 - val_loss: 0.2338 - val_accuracy: 0.9556 - lr: 1.0000e-04
+Epoch 11/50
+140/237 [================>.............] - ETA: 2:24 - loss: 0.7311 - accuracy: 0.7962Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56876f0>
+237/237 [==============================] - ETA: 0s - loss: 0.7098 - accuracy: 0.7984Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c8f40>
+237/237 [==============================] - 435s 2s/step - loss: 0.7098 - accuracy: 0.7984 - val_loss: 0.2403 - val_accuracy: 0.9463 - lr: 1.0000e-04
+Epoch 12/50
+ 46/237 [====>.........................] - ETA: 4:44 - loss: 0.6386 - accuracy: 0.8145Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c9e90>
+237/237 [==============================] - 435s 2s/step - loss: 0.6486 - accuracy: 0.8130 - val_loss: 0.1814 - val_accuracy: 0.9580 - lr: 1.0000e-04
+Epoch 13/50
+167/237 [====================>.........] - ETA: 1:44 - loss: 0.6165 - accuracy: 0.8204Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bff60>
+237/237 [==============================] - ETA: 0s - loss: 0.6211 - accuracy: 0.8192Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bffb0>
+Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfd30>
+237/237 [==============================] - 434s 2s/step - loss: 0.6211 - accuracy: 0.8192 - val_loss: 0.1885 - val_accuracy: 0.9500 - lr: 1.0000e-04
+Epoch 14/50
+186/237 [======================>.......] - ETA: 1:16 - loss: 0.5784 - accuracy: 0.8295Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bffb0>
+237/237 [==============================] - 436s 2s/step - loss: 0.5661 - accuracy: 0.8329 - val_loss: 0.1677 - val_accuracy: 0.9586 - lr: 1.0000e-04
+Epoch 15/50
+ 99/237 [===========>..................] - ETA: 3:25 - loss: 0.5411 - accuracy: 0.8456Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfd30>
+237/237 [==============================] - ETA: 0s - loss: 0.5287 - accuracy: 0.8452Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bf970>
+Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfb50>
+237/237 [==============================] - 434s 2s/step - loss: 0.5287 - accuracy: 0.8452 - val_loss: 0.1470 - val_accuracy: 0.9648 - lr: 1.0000e-04
+Epoch 16/50
+102/237 [===========>..................] - ETA: 3:23 - loss: 0.4933 - accuracy: 0.8536Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c8c20>
+237/237 [==============================] - ETA: 0s - loss: 0.4977 - accuracy: 0.8499Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c9ee0>
+237/237 [==============================] - 435s 2s/step - loss: 0.4977 - accuracy: 0.8499 - val_loss: 0.1386 - val_accuracy: 0.9611 - lr: 1.0000e-04
+Epoch 17/50
+182/237 [======================>.......] - ETA: 1:21 - loss: 0.4624 - accuracy: 0.8606Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfa10>
+237/237 [==============================] - ETA: 0s - loss: 0.4573 - accuracy: 0.8642Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bd6c0>
+237/237 [==============================] - 424s 2s/step - loss: 0.4573 - accuracy: 0.8642 - val_loss: 0.1288 - val_accuracy: 0.9627 - lr: 1.0000e-04
+Epoch 18/50
+104/237 [============>.................] - ETA: 3:17 - loss: 0.4475 - accuracy: 0.8648Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56beca0>
+237/237 [==============================] - ETA: 0s - loss: 0.4518 - accuracy: 0.8652Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bede0>
+237/237 [==============================] - 435s 2s/step - loss: 0.4518 - accuracy: 0.8652 - val_loss: 0.1198 - val_accuracy: 0.9698 - lr: 1.0000e-04
+Epoch 19/50
+ 41/237 [====>.........................] - ETA: 4:58 - loss: 0.4005 - accuracy: 0.8811Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfb50>
+232/237 [============================>.] - ETA: 7s - loss: 0.4116 - accuracy: 0.8759Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfe70>
+237/237 [==============================] - ETA: 0s - loss: 0.4100 - accuracy: 0.8765Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bf2e0>
+237/237 [==============================] - 440s 2s/step - loss: 0.4100 - accuracy: 0.8765 - val_loss: 0.1132 - val_accuracy: 0.9673 - lr: 1.0000e-04
+Epoch 20/50
+219/237 [==========================>...] - ETA: 27s - loss: 0.4015 - accuracy: 0.8826Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56a3ec0>
+237/237 [==============================] - ETA: 0s - loss: 0.4011 - accuracy: 0.8824Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfc40>
+237/237 [==============================] - 439s 2s/step - loss: 0.4011 - accuracy: 0.8824 - val_loss: 0.1175 - val_accuracy: 0.9667 - lr: 1.0000e-04
+Epoch 21/50
+237/237 [==============================] - ETA: 0s - loss: 0.3732 - accuracy: 0.8896Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfe70>
+237/237 [==============================] - 439s 2s/step - loss: 0.3732 - accuracy: 0.8896 - val_loss: 0.0985 - val_accuracy: 0.9747 - lr: 1.0000e-04
+Epoch 22/50
+ 26/237 [==>...........................] - ETA: 5:05 - loss: 0.4036 - accuracy: 0.8930Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56beca0>
+237/237 [==============================] - ETA: 0s - loss: 0.3544 - accuracy: 0.8975Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bf970>
+237/237 [==============================] - 441s 2s/step - loss: 0.3544 - accuracy: 0.8975 - val_loss: 0.0935 - val_accuracy: 0.9716 - lr: 1.0000e-04
+Epoch 23/50
+ 60/237 [======>.......................] - ETA: 4:29 - loss: 0.3282 - accuracy: 0.9036Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bff60>
+237/237 [==============================] - ETA: 0s - loss: 0.3426 - accuracy: 0.8988Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56be3e0>
+Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfb00>
+237/237 [==============================] - 430s 2s/step - loss: 0.3426 - accuracy: 0.8988 - val_loss: 0.0968 - val_accuracy: 0.9679 - lr: 1.0000e-04
+Epoch 24/50
+ 28/237 [==>...........................] - ETA: 5:25 - loss: 0.3167 - accuracy: 0.9051Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bfb00>
+237/237 [==============================] - 432s 2s/step - loss: 0.3247 - accuracy: 0.9021 - val_loss: 0.0877 - val_accuracy: 0.9691 - lr: 1.0000e-04
+Epoch 25/50
+145/237 [=================>............] - ETA: 2:18 - loss: 0.3443 - accuracy: 0.8950Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bf970>
+211/237 [=========================>....] - ETA: 38s - loss: 0.3366 - accuracy: 0.8960Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c8ae0>
+237/237 [==============================] - ETA: 0s - loss: 0.3305 - accuracy: 0.8974Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56c9da0>
+237/237 [==============================] - 437s 2s/step - loss: 0.3305 - accuracy: 0.8974 - val_loss: 0.0733 - val_accuracy: 0.9778 - lr: 1.0000e-04
+Epoch 26/50
+237/237 [==============================] - ETA: 0s - loss: 0.3147 - accuracy: 0.9050Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56bede0>
+237/237 [==============================] - 439s 2s/step - loss: 0.3147 - accuracy: 0.9050 - val_loss: 0.0936 - val_accuracy: 0.9660 - lr: 1.0000e-04
+Epoch 27/50
+ 87/237 [==========>...................] - ETA: 3:48 - loss: 0.3047 - accuracy: 0.9023Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce5686160>
+237/237 [==============================] - ETA: 0s - loss: 0.3079 - accuracy: 0.9029Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce5685da0>
+Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce56840e0>
+237/237 [==============================] - 437s 2s/step - loss: 0.3079 - accuracy: 0.9029 - val_loss: 0.0815 - val_accuracy: 0.9753 - lr: 1.0000e-04
+Epoch 28/50
+ 24/237 [==>...........................] - ETA: 5:24 - loss: 0.3190 - accuracy: 0.9049Error generating batch: cannot identify image file <_io.BytesIO object at 0x78fce5687a10>
+237/237 [==============================] - 436s 2s/step - loss: 0.2857 - accuracy: 0.9139 - val_loss: 0.0804 - val_accuracy: 0.9728 - lr: 1.0000e-04
+Model training done! 
+
+Classification report: 
+              precision    recall  f1-score   support
+
+           0       0.68      0.41      0.51        32
+           1       0.76      1.00      0.86        34
+           2       1.00      1.00      1.00        32
+           3       1.00      0.94      0.97        35
+           4       1.00      0.97      0.99        35
+           5       1.00      0.94      0.97        35
+           6       1.00      0.97      0.98        33
+           7       1.00      1.00      1.00        34
+           8       0.95      1.00      0.97        36
+           9       1.00      0.95      0.97        39
+           A       1.00      1.00      1.00        37
+           B       0.97      0.97      0.97        36
+           C       0.92      0.94      0.93        35
+           D       1.00      0.97      0.98        33
+           E       0.97      0.91      0.94        32
+           F       0.91      0.97      0.94        31
+           G       0.88      0.88      0.88        33
+           H       1.00      1.00      1.00        35
+           I       1.00      0.39      0.56        28
+           J       0.82      0.96      0.89        28
+           K       1.00      0.87      0.93        31
+           L       0.97      1.00      0.99        33
+           M       1.00      0.97      0.99        34
+           N       0.94      1.00      0.97        34
+           O       0.55      0.82      0.66        28
+           P       1.00      1.00      1.00        35
+           Q       0.93      1.00      0.97        28
+           R       0.89      0.97      0.93        33
+           S       1.00      1.00      1.00        37
+           T       0.97      1.00      0.98        31
+           U       1.00      1.00      1.00        37
+           V       1.00      1.00      1.00        32
+           W       1.00      1.00      1.00        28
+           X       0.97      0.97      0.97        37
+           Y       0.94      1.00      0.97        33
+           Z       1.00      1.00      1.00        39
+
+    accuracy                           0.94      1203
+   macro avg       0.94      0.94      0.94      1203
+weighted avg       0.95      0.94      0.94      1203
+
+

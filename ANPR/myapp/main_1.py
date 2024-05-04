@@ -4,6 +4,7 @@ import numpy as np
 import time
 import functools
 import os
+import requests
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.models import load_model, Sequential
@@ -102,9 +103,16 @@ def character_segmentation(image):
         if numPixels > lb and numPixels < ub:
             mask = cv2.add(mask, labelMask)
     contours, _ = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    boundingBoxes = [cv2.boundingRect(c) for c in contours]
+    filtered_contours = [c for c in contours if contour_check(c)]
+    boundingBoxes = [cv2.boundingRect(c) for c in filtered_contours]
     boundingBoxes = sorted(boundingBoxes, key=functools.cmp_to_key(compare))
     return boundingBoxes
+
+def contour_check(contour):
+    x, y, w, h = cv2.boundingRect(contour)
+    aspect_ratio = w / float(h)
+    area = cv2.contourArea(contour)
+    return 0.0 <= aspect_ratio <= 1.0 and area > 20
 
 def create_tr_model():
     tr_model = Sequential([
@@ -125,7 +133,7 @@ def create_tr_model():
     cwd = os.getcwd()
     cwd = cwd.replace("\\", "/")
     cwd += '/myapp/'
-    tr_model.load_weights(cwd + 'best_tr_model/best_model.h5')
+    tr_model.load_weights(cwd + 'best_tr_model2/best_model.h5')
     return tr_model
 
 
@@ -153,15 +161,29 @@ def pipeline(image):
 
     cropped_characters = np.array(cropped_characters)
     cropped_characters = np.expand_dims(cropped_characters, axis=0)
-    print(cropped_characters[0][0].shape)
 
     for char in cropped_characters[0]:
         char = np.expand_dims(char, axis=0)
         prediction = tr_model.predict(char)
         predicted_label = le.inverse_transform(np.argmax(prediction, axis=1))
+        if predicted_label[0] == 'I' or predicted_label[0] == 'i':
+            predicted_label = '1' # UK License plates don't have the letter I
         number_plate += predicted_label[0]
-
+    slice = number_plate[2:].replace('O', '0')
+    number_plate = number_plate[:2] + slice
+    number_plate = number_plate.replace('Q', '0')
     return number_plate
+
+
+def dvla_api_request(license_plate):
+    url = 'https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles'
+    payload = "{\n\t\"registrationNumber\": \"{}\"\n}".format(license_plate) 
+    headers = {
+        'x-api-key': os.getenv['API_KEY'],
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    return response
 
 #number_plate = pipeline('test.jpg')
 #print(number_plate)

@@ -101,9 +101,18 @@ def character_segmentation(image):
         if numPixels > lb and numPixels < ub:
             mask = cv2.add(mask, labelMask)
     contours, _ = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    boundingBoxes = [cv2.boundingRect(c) for c in contours]
+    filtered_contours = [c for c in contours if contour_check(c)]
+    
+    # Get bounding boxes of filtered contours
+    boundingBoxes = [cv2.boundingRect(c) for c in filtered_contours]
     boundingBoxes = sorted(boundingBoxes, key=functools.cmp_to_key(compare))
     return boundingBoxes
+
+def contour_check(contour):
+    x, y, w, h = cv2.boundingRect(contour)
+    aspect_ratio = w / float(h)
+    area = cv2.contourArea(contour)
+    return 0.0 <= aspect_ratio <= 1.0
 
 def create_tr_model():
     tr_model = Sequential([
@@ -122,7 +131,7 @@ def create_tr_model():
         Dense(36, activation='softmax')
     ])
 
-    tr_model.load_weights('best_tr_model/best_model.h5')
+    tr_model.load_weights('best_tr_model2/best_model.h5')
     return tr_model
 
 
@@ -136,20 +145,27 @@ def pipeline(image):
     le = LabelEncoder()
     le.fit(alphabet)
     cropped = license_plate_detection(image)
-    if cropped.shape[0] < 32 or cropped.shape[1] < 32:
+    cv2.imshow("cropped", cropped)
+    cv2.waitKey(0)
+    '''if cropped.shape[0] < 32 or cropped.shape[1] < 32:
         print("Valid number plate not found, breaking out")
-        return None
+        return None'''
     bounding_boxes = character_segmentation(cropped)
-    print(bounding_boxes)
+    image_with_boxes = cropped.copy()
+    for (x, y, w, h) in bounding_boxes:
+        cv2.rectangle(image_with_boxes, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    cv2.imshow("plot", image_with_boxes)
+    cv2.waitKey(0)
     
     cropped_characters = []
     for box in bounding_boxes:
         x,y,w,h = box
         crop = cropped[y:y+h, x:x+w]
         crop = cv2.resize(crop, (64, 64))
+        cv2.imshow("crop", crop)
+        cv2.waitKey(0)
         cropped_characters.append(crop)
 
-    print(cropped_characters)
     cropped_characters = np.array(cropped_characters)
     cropped_characters = np.expand_dims(cropped_characters, axis=0)
 
@@ -157,9 +173,13 @@ def pipeline(image):
         char = np.expand_dims(char, axis=0)
         prediction = tr_model.predict(char)
         predicted_label = le.inverse_transform(np.argmax(prediction, axis=1))
+        if predicted_label[0] == 'I' or predicted_label[0] == 'i':
+            predicted_label = '1' # UK License plates don't have the letter I
         number_plate += predicted_label[0]
-
+    slice = number_plate[2:].replace('O', '0')
+    number_plate = number_plate[:2] + slice
+    number_plate = number_plate.replace('Q', '0')
     return number_plate
 
-number_plate = pipeline('test.jpg')
+number_plate = pipeline('Cars3.png')
 print(number_plate)

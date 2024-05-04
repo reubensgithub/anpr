@@ -2,12 +2,13 @@
 {% block title %} Home Page {% endblock %}
 
 {% block content %}
-<p>This is the home page for the ANPR app</p>
-<form action="{% url 'run_pipeline' %}" method="post" enctype="multipart/form-data"> 
+<center><h1>This is the home page for the ANPR app</h1></center>
+<center><form action="{% url 'run_pipeline' %}" method="post" enctype="multipart/form-data"> 
     {% csrf_token %}
     <input type="file" name="image" accept="image/png, image/jpeg, image/jpg">
     <button type="submit">Run Pipeline</button> 
 </form>
+</center>
 
 {% if result %}
     <p>Number Plate: {{ result }}</p>
@@ -16,4 +17,16 @@
 {% if error_message %}
     <p>Error: {{ error_message }}</p>
 {% endif %}
+<script>
+    document.getElementById('image-input').addEventListener('change', function() {
+    var fileInput = this;
+    var runPipelineBtn = document.getElementById('run-pipeline-btn');
+    if (fileInput.files && fileInput.files[0]) {
+        runPipelineBtn.style.display = 'block';
+        fileInput.style.display = 'none'; // Hide the image input once uploaded
+    } else {
+        runPipelineBtn.style.display = 'none';
+    }
+});
+</script>
 {% endblock %}
