@@ -2,31 +2,33 @@
 {% block title %} Home Page {% endblock %}
 
 {% block content %}
-<center><h3>This is the ANPR page for the ANPR app</h1></center>
-<center><form action="{% url 'run_pipeline' %}" method="post" enctype="multipart/form-data"> 
+<center><h3>This is the ANPR page for the ANPR app</h1>
+<form action="{% url 'run_pipeline' %}" method="post" enctype="multipart/form-data"> 
     {% csrf_token %}
-    <input type="file" name="image" accept="image/png, image/jpeg, image/jpg">
-    <button type="submit">Run Pipeline</button> 
+    <input type="file" class="larger-button" name="image" accept="image/png, image/jpeg, image/jpg">
+    <button type="submit" class="larger-button">Run Pipeline</button> 
 </form>
 </center>
 
+<style>
+    .larger-button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+</style>
+
 {% if result %}
-    <p>Number Plate: {{ result }}</p>
+    <center><p>Number Plate: {{ result }}</p>
+        <p>Check vehicle details:</p>
+        <form action="{% url 'run_dvla_api' %}" method="post" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            <input type="hidden" name="result" value="{{ result }}">
+            <button id="run-dvla-api-btn" class="larger-button">Run DVLA API Request</button>
+        </form>
+    </center>
 {% endif %}
 
 {% if error_message %}
-    <p>Error: {{ error_message }}</p>
+    <center><p>Error: {{ error_message }}</p></center>
 {% endif %}
-<script>
-    document.getElementById('image-input').addEventListener('change', function() {
-    var fileInput = this;
-    var runPipelineBtn = document.getElementById('run-pipeline-btn');
-    if (fileInput.files && fileInput.files[0]) {
-        runPipelineBtn.style.display = 'block';
-        fileInput.style.display = 'none'; // Hide the image input once uploaded
-    } else {
-        runPipelineBtn.style.display = 'none';
-    }
-});
-</script>
 {% endblock %}

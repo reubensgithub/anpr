@@ -176,20 +176,13 @@ def pipeline(image):
 
 
 def dvla_api_request(license_plate):
+    print("License Plate:", license_plate)
+    license_plate = license_plate.strip()
     url = 'https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles'
-    payload = "{\n\t\"registrationNumber\": \"{}\"\n}".format(license_plate) 
+    payload = {"registrationNumber": license_plate}
     headers = {
-        'x-api-key': os.getenv['API_KEY'],
+        'x-api-key': 'C3QKCXeyFO4N69PVcK1VB2anGN3wWjm74j02h0dC',
         'Content-Type': 'application/json'
     }
     response = requests.request("POST", url, headers=headers, data=payload)
     return response
-
-#number_plate = pipeline('test.jpg')
-#print(number_plate)
-
-''' to get details, make a POST request:
-'https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles'
-API KEY = C3QKCXeyFO4N69PVcK1VB2anGN3wWjm74j02h0dC
-The key is x-api-key
-'''

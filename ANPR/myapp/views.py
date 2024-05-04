@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse
+from django.http import JsonResponse
 import os
-from .main_1 import pipeline
+import requests
+from .main_1 import pipeline, dvla_api_request
 import tempfile
 
 # Create your views here.
@@ -33,3 +35,10 @@ def run_pipeline(request):
             os.unlink(temp_image_path)
     else:
         return render(request, "pipeline.html")
+    
+def run_dvla_api(request):
+    if request.method == 'POST':
+        license_plate = request.POST.get('result')
+        response = dvla_api_request(license_plate)
+        return JsonResponse({'response': response.text})
+    return JsonResponse({'error': 'Method not allowed'}, status=405)

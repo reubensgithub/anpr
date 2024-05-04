@@ -4,8 +4,15 @@
 {% block content %}
 <center><h3>This is the home page for the ANPR app</h3></center>
 <div style="text-align: center;">
-<button id="myButton" class="submit-button" >Go to ANPR</button>
+<button id="myButton" class="submit-button larger-button" >Go to ANPR</button>
 </div>
+
+<style>
+    .larger-button {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+</style>
 
 <script type="text/javascript">
     document.getElementById("myButton").onclick = function() {
