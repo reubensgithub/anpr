@@ -7,7 +7,7 @@ import os
 import requests
 from sklearn.preprocessing import LabelEncoder
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
-from tensorflow.keras.models import load_model, Sequential
+from tensorflow.keras.models import Sequential
 
 def license_plate_detection(image_path):
     if image_path is None:

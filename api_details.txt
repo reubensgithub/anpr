@@ -1,0 +1,5 @@
+''' to get details, make a POST request:
+'https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles'
+API KEY = C3QKCXeyFO4N69PVcK1VB2anGN3wWjm74j02h0dC
+The key is x-api-key
+'''
