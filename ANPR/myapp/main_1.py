@@ -181,7 +181,7 @@ def dvla_api_request(license_plate):
     url = 'https://driver-vehicle-licensing.api.gov.uk/vehicle-enquiry/v1/vehicles'
     payload = {"registrationNumber": license_plate}
     headers = {
-        'x-api-key': 'C3QKCXeyFO4N69PVcK1VB2anGN3wWjm74j02h0dC',
+        'x-api-key': '',
         'Content-Type': 'application/json'
     }
     response = requests.request("POST", url, headers=headers, data=payload)
