@@ -19,3 +19,7 @@ To run the server, open a terminal or command prompt, navigate to the `ANPR` sub
 
 ```bash
 python manage.py runserver
+```
+
+## Examples
+![Example 1](https://ibb.co/xs4kQJW)
