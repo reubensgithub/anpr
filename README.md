@@ -22,4 +22,4 @@ python manage.py runserver
 ```
 
 ## Examples
-![Example 1](https://ibb.co/xs4kQJW)
+![Example 1](https://github.com/reubensgithub/anpr/blob/main/detection_segmentation.png)
